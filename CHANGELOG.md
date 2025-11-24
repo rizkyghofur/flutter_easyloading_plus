@@ -1,6 +1,10 @@
+## [3.1.1] - 2025.11.24
+
+- Fixed example code
+
 ## [3.1.0] - 2025.11.24
 
-- Fix bugs when init [#111](https://github.com/nslogx/flutter_easyloading/pull/186)
+- Fixed bugs when init [#111](https://github.com/nslogx/flutter_easyloading/pull/186)
 - Added cupertino loader [#240](https://github.com/nslogx/flutter_easyloading/pull/240)
 - Updated spinkit for fix the build issues in latest [#244](https://github.com/nslogx/flutter_easyloading/pull/244)
 

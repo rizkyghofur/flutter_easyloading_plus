@@ -1,6 +1,6 @@
 ## [3.1.1+1] - 2025.11.24
 
-- Fixed example code
+- Fixed readme code
 
 ## [3.1.1] - 2025.11.24
 

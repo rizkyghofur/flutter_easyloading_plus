@@ -1,0 +1,20 @@
+name: flutter_easyloading_plus
+description: A clean and lightweight loading/toast widget for Flutter, Easy to use without context, Support iOS、Android and Web
+version: 3.1.0
+homepage: https://github.com/rizkyghofur/flutter_easyloading_plus
+
+environment:
+  sdk: ">=2.12.0 <4.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  flutter_spinkit: ^5.2.2
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:

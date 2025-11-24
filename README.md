@@ -1,14 +1,12 @@
 # Flutter EasyLoading
 
-[![pub package](https://img.shields.io/pub/v/flutter_easyloading?style=flat)](https://pub.dev/packages/flutter_easyloading) [![pub points](https://badges.bar/flutter_easyloading/pub%20points)](https://pub.dev/packages/flutter_easyloading/score) [![popularity](https://badges.bar/flutter_easyloading/popularity)](https://pub.dev/packages/flutter_easyloading/score) [![likes](https://badges.bar/flutter_easyloading/likes)](https://pub.dev/packages/flutter_easyloading/score) [![license](https://img.shields.io/github/license/rizkyghofur/flutter_easyloading_plus?style=flat)](https://github.com/rizkyghofur/flutter_easyloading_plus) [![stars](https://img.shields.io/github/stars/rizkyghofur/flutter_easyloading_plus?style=social)](https://github.com/rizkyghofur/flutter_easyloading_plus)
-
-English | [简体中文](./README-zh_CN.md)
+[![pub package](https://img.shields.io/pub/v/flutter_easyloading?style=flat)](https://pub.dev/packages/flutter_easyloading_plus) [![pub points](https://badges.bar/flutter_easyloading/pub%20points)](https://pub.dev/packages/flutter_easyloading_plus/score) [![popularity](https://badges.bar/flutter_easyloading/popularity)](https://pub.dev/packages/flutter_easyloading_plus/score) [![likes](https://badges.bar/flutter_easyloading/likes)](https://pub.dev/packages/flutter_easyloading_plus/score) [![license](https://img.shields.io/github/license/rizkyghofur/flutter_easyloading_plus?style=flat)](https://github.com/rizkyghofur/flutter_easyloading_plus) [![stars](https://img.shields.io/github/stars/rizkyghofur/flutter_easyloading_plus?style=social)](https://github.com/rizkyghofur/flutter_easyloading_plus)
 
 <img src="https://raw.githubusercontent.com/rizkyghofur/flutter_easyloading_plus/master/images/gif01.gif" width=200 height=429/> <img src="https://raw.githubusercontent.com/rizkyghofur/flutter_easyloading_plus/master/images/gif02.gif" width=200 height=429/> <img src="https://raw.githubusercontent.com/rizkyghofur/flutter_easyloading_plus/master/images/gif03.gif" width=200 height=429/> <img src="https://raw.githubusercontent.com/rizkyghofur/flutter_easyloading_plus/master/images/gif04.gif" width=200 height=429/>
 
 ## Live Preview
 
-👉 [https://nslogx.github.io/flutter_easyloading](https://nslogx.github.io/flutter_easyloading/#/)
+👉 [Click here to see Live Preview!](https://nslogx.github.io/flutter_easyloading/#/)
 
 ## Installing
 
@@ -16,13 +14,13 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  flutter_easyloading: ^latest
+  flutter_easyloading_plus: ^latest
 ```
 
 ## Import
 
 ```dart
-import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_easyloading_plus/flutter_easyloading_plus.dart';
 ```
 
 ## How to use

@@ -1,7 +1,12 @@
-## [3.2.0] - 2026.04.05
+## [3.2.0] - 2026.04.09
 
 - Added accessibility support with `Semantics` widget.
 - Added `onDismiss` callback to all show methods for granular control.
+- Added `useContextTheme` support: automatically inherit colors from `Theme.of(context)`.
+- Added comprehensive Test Suite: Unit & Widget tests (100% core coverage).
+- Added full API DartDoc comments for improved IDE support.
+- Updated license and attribution.
+- Resolved all linting issues (0 analysis issues found).
 - Modernized code with better type safety and performance.
 
 ## [3.1.2] - 2025.11.24

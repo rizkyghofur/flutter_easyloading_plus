@@ -182,6 +182,10 @@ Widget errorWidget;
 
 /// info widget of loading
 Widget infoWidget;
+
+/// Whether to use the app's global [ThemeData] (via [BuildContext]).
+/// Default is false.
+bool useContextTheme;
 ```
 
 Because of `EasyLoading` is a singleton, so you can custom loading style any where like this:
@@ -200,6 +204,7 @@ EasyLoading.instance
   ..maskColor = Colors.blue.withOpacity(0.5)
   ..userInteractions = true
   ..dismissOnTap = false
+  ..useContextTheme = true
   ..customAnimation = CustomAnimation();
 ```
 

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading_plus/flutter_easyloading_plus.dart';
 
@@ -8,7 +9,7 @@ import './custom_animation.dart';
 import './test.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(const MyApp());
   configLoading();
 }
 
@@ -23,13 +24,16 @@ void configLoading() {
     ..backgroundColor = Colors.green
     ..indicatorColor = Colors.yellow
     ..textColor = Colors.yellow
+    // ignore: deprecated_member_use
     ..maskColor = Colors.blue.withOpacity(0.5)
     ..userInteractions = true
     ..dismissOnTap = false
-    ..customAnimation = CustomAnimation();
+    ..customAnimation = const CustomAnimation();
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -38,19 +42,19 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter EasyLoading'),
+      home: const MyHomePage(title: 'Flutter EasyLoading'),
       builder: EasyLoading.init(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, this.title}) : super(key: key);
+  const MyHomePage({super.key, this.title});
 
   final String? title;
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
@@ -61,7 +65,9 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     EasyLoading.addStatusCallback((status) {
-      print('EasyLoading Status $status');
+      if (kDebugMode) {
+        print('EasyLoading Status $status');
+      }
       if (status == EasyLoadingStatus.dismiss) {
         _timer?.cancel();
       }
@@ -76,51 +82,55 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title ?? ''),
       ),
-      body: Container(
+      body: SizedBox(
         width: MediaQuery.of(context).size.width,
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              TextField(),
+              const TextField(),
               Wrap(
                 runAlignment: WrapAlignment.center,
                 crossAxisAlignment: WrapCrossAlignment.center,
                 children: <Widget>[
                   TextButton(
-                    child: Text('open test page'),
+                    child: const Text('open test page'),
                     onPressed: () {
                       _timer?.cancel();
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (BuildContext context) => TestPage(),
+                          builder: (BuildContext context) => const TestPage(),
                         ),
                       );
                     },
                   ),
                   TextButton(
-                    child: Text('dismiss'),
+                    child: const Text('dismiss'),
                     onPressed: () async {
                       _timer?.cancel();
                       await EasyLoading.dismiss();
-                      print('EasyLoading dismiss');
+                      if (kDebugMode) {
+                        print('EasyLoading dismiss');
+                      }
                     },
                   ),
                   TextButton(
-                    child: Text('show'),
+                    child: const Text('show'),
                     onPressed: () async {
                       _timer?.cancel();
                       await EasyLoading.show(
                         status: 'loading...',
                         maskType: EasyLoadingMaskType.black,
                       );
-                      print('EasyLoading show');
+                      if (kDebugMode) {
+                        print('EasyLoading show');
+                      }
                     },
                   ),
                   TextButton(
-                    child: Text('showToast'),
+                    child: const Text('showToast'),
                     onPressed: () {
                       _timer?.cancel();
                       EasyLoading.showToast(
@@ -129,29 +139,38 @@ class _MyHomePageState extends State<MyHomePage> {
                     },
                   ),
                   TextButton(
-                    child: Text('showSuccess'),
+                    child: const Text('showSuccess'),
                     onPressed: () async {
                       _timer?.cancel();
-                      await EasyLoading.showSuccess('Great Success!');
-                      print('EasyLoading showSuccess');
+                      await EasyLoading.showSuccess(
+                        'Great Success!',
+                        onDismiss: () {
+                          if (kDebugMode) {
+                            print('EasyLoading showSuccess dismissed');
+                          }
+                        },
+                      );
+                      if (kDebugMode) {
+                        print('EasyLoading showSuccess');
+                      }
                     },
                   ),
                   TextButton(
-                    child: Text('showError'),
+                    child: const Text('showError'),
                     onPressed: () {
                       _timer?.cancel();
                       EasyLoading.showError('Failed with Error');
                     },
                   ),
                   TextButton(
-                    child: Text('showInfo'),
+                    child: const Text('showInfo'),
                     onPressed: () {
                       _timer?.cancel();
                       EasyLoading.showInfo('Useful Information.');
                     },
                   ),
                   TextButton(
-                    child: Text('showProgress'),
+                    child: const Text('showProgress'),
                     onPressed: () {
                       _progress = 0;
                       _timer?.cancel();
@@ -171,15 +190,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 ],
               ),
               Padding(
-                padding: EdgeInsets.only(top: 20.0),
+                padding: const EdgeInsets.only(top: 20.0),
                 child: Column(
                   children: <Widget>[
-                    Text('Style'),
+                    const Text('Style'),
                     Padding(
-                      padding: EdgeInsets.only(top: 10.0),
+                      padding: const EdgeInsets.only(top: 10.0),
                       child: CupertinoSegmentedControl<EasyLoadingStyle>(
                         selectedColor: Colors.blue,
-                        children: {
+                        children: const {
                           EasyLoadingStyle.dark: Padding(
                             padding: EdgeInsets.all(5.0),
                             child: Text('dark'),
@@ -202,15 +221,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 20.0),
+                padding: const EdgeInsets.only(top: 20.0),
                 child: Column(
                   children: <Widget>[
-                    Text('MaskType'),
+                    const Text('MaskType'),
                     Padding(
-                      padding: EdgeInsets.only(top: 10.0),
+                      padding: const EdgeInsets.only(top: 10.0),
                       child: CupertinoSegmentedControl<EasyLoadingMaskType>(
                         selectedColor: Colors.blue,
-                        children: {
+                        children: const {
                           EasyLoadingMaskType.none: Padding(
                             padding: EdgeInsets.all(5.0),
                             child: Text('none'),
@@ -237,16 +256,34 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 20.0),
+                padding: const EdgeInsets.only(top: 20.0),
                 child: Column(
                   children: <Widget>[
-                    Text('Toast Positon'),
+                    const Text('Context Theme'),
+                    SwitchListTile(
+                      title: const Text('Use Context Theme'),
+                      subtitle: const Text('Inherit colors from Theme.of(context)'),
+                      value: EasyLoading.instance.useContextTheme,
+                      onChanged: (value) {
+                        setState(() {
+                          EasyLoading.instance.useContextTheme = value;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: Column(
+                  children: <Widget>[
+                    const Text('Toast Positon'),
                     Padding(
-                      padding: EdgeInsets.only(top: 10.0),
+                      padding: const EdgeInsets.only(top: 10.0),
                       child:
                           CupertinoSegmentedControl<EasyLoadingToastPosition>(
                         selectedColor: Colors.blue,
-                        children: {
+                        children: const {
                           EasyLoadingToastPosition.top: Padding(
                             padding: EdgeInsets.all(5.0),
                             child: Text('top'),
@@ -269,16 +306,16 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(top: 20.0),
+                padding: const EdgeInsets.only(top: 20.0),
                 child: Column(
                   children: <Widget>[
-                    Text('Animation Style'),
+                    const Text('Animation Style'),
                     Padding(
-                      padding: EdgeInsets.only(top: 10.0),
+                      padding: const EdgeInsets.only(top: 10.0),
                       child:
                           CupertinoSegmentedControl<EasyLoadingAnimationStyle>(
                         selectedColor: Colors.blue,
-                        children: {
+                        children: const {
                           EasyLoadingAnimationStyle.opacity: Padding(
                             padding: EdgeInsets.all(5.0),
                             child: Text('opacity'),
@@ -305,19 +342,19 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               Padding(
-                padding: EdgeInsets.only(
+                padding: const EdgeInsets.only(
                   top: 20.0,
                   bottom: 50.0,
                 ),
                 child: Column(
                   children: <Widget>[
-                    Text('IndicatorType(total: 23)'),
+                    const Text('IndicatorType(total: 23)'),
                     Padding(
-                      padding: EdgeInsets.only(top: 10.0),
+                      padding: const EdgeInsets.only(top: 10.0),
                       child:
                           CupertinoSegmentedControl<EasyLoadingIndicatorType>(
                         selectedColor: Colors.blue,
-                        children: {
+                        children: const {
                           EasyLoadingIndicatorType.circle: Padding(
                             padding: EdgeInsets.all(5.0),
                             child: Text('circle'),

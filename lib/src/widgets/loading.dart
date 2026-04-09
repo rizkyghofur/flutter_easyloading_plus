@@ -29,13 +29,12 @@ class FlutterEasyLoading extends StatefulWidget {
   final Widget? child;
 
   const FlutterEasyLoading({
-    Key? key,
+    super.key,
     required this.child,
-  })  : assert(child != null),
-        super(key: key);
+  });
 
   @override
-  _FlutterEasyLoadingState createState() => _FlutterEasyLoadingState();
+  State<FlutterEasyLoading> createState() => _FlutterEasyLoadingState();
 }
 
 class _FlutterEasyLoadingState extends State<FlutterEasyLoading> {

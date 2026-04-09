@@ -50,13 +50,14 @@ class EasyLoadingTheme {
       EasyLoading.instance.loadingStyle == EasyLoadingStyle.custom
           ? EasyLoading.instance.backgroundColor!
           : EasyLoading.instance.loadingStyle == EasyLoadingStyle.dark
+              // ignore: deprecated_member_use
               ? Colors.black.withOpacity(0.9)
               : Colors.white;
 
   /// boxShadow color of loading
   static List<BoxShadow>? get boxShadow =>
       EasyLoading.instance.loadingStyle == EasyLoadingStyle.custom
-          ? EasyLoading.instance.boxShadow ?? [BoxShadow()]
+          ? EasyLoading.instance.boxShadow ?? [const BoxShadow()]
           : null;
 
   /// font color of status
@@ -73,28 +74,29 @@ class EasyLoadingTheme {
     return maskType == EasyLoadingMaskType.custom
         ? EasyLoading.instance.maskColor!
         : maskType == EasyLoadingMaskType.black
+            // ignore: deprecated_member_use
             ? Colors.black.withOpacity(0.5)
             : Colors.transparent;
   }
 
   /// loading animation
   static EasyLoadingAnimation get loadingAnimation {
-    EasyLoadingAnimation _animation;
+    EasyLoadingAnimation animation;
     switch (EasyLoading.instance.animationStyle) {
       case EasyLoadingAnimationStyle.custom:
-        _animation = EasyLoading.instance.customAnimation!;
+        animation = EasyLoading.instance.customAnimation!;
         break;
       case EasyLoadingAnimationStyle.offset:
-        _animation = OffsetAnimation();
+        animation = const OffsetAnimation();
         break;
       case EasyLoadingAnimationStyle.scale:
-        _animation = ScaleAnimation();
+        animation = const ScaleAnimation();
         break;
       default:
-        _animation = OpacityAnimation();
+        animation = const OpacityAnimation();
         break;
     }
-    return _animation;
+    return animation;
   }
 
   /// font size of status
@@ -157,5 +159,30 @@ class EasyLoadingTheme {
     maskType ??= EasyLoading.instance.maskType;
     return EasyLoading.instance.userInteractions ??
         (maskType == EasyLoadingMaskType.none ? true : false);
+  }
+
+  /// Resolve color based on context if useContextTheme is enabled
+  static Color resolveIndicatorColor(BuildContext context) {
+    if (EasyLoading.instance.useContextTheme &&
+        EasyLoading.instance.loadingStyle != EasyLoadingStyle.custom) {
+      return Theme.of(context).colorScheme.primary;
+    }
+    return indicatorColor;
+  }
+
+  static Color resolveTextColor(BuildContext context) {
+    if (EasyLoading.instance.useContextTheme &&
+        EasyLoading.instance.loadingStyle != EasyLoadingStyle.custom) {
+      return Theme.of(context).colorScheme.onSurface;
+    }
+    return textColor;
+  }
+
+  static Color resolveBackgroundColor(BuildContext context) {
+    if (EasyLoading.instance.useContextTheme &&
+        EasyLoading.instance.loadingStyle != EasyLoadingStyle.custom) {
+      return Theme.of(context).colorScheme.surface;
+    }
+    return backgroundColor;
   }
 }

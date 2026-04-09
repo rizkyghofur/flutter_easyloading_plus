@@ -1,12 +1,8 @@
-# Flutter EasyLoading
+# Flutter EasyLoading Plus
 
-[![pub package](https://img.shields.io/pub/v/flutter_easyloading?style=flat)](https://pub.dev/packages/flutter_easyloading_plus) [![pub points](https://badges.bar/flutter_easyloading/pub%20points)](https://pub.dev/packages/flutter_easyloading_plus/score) [![popularity](https://badges.bar/flutter_easyloading/popularity)](https://pub.dev/packages/flutter_easyloading_plus/score) [![likes](https://badges.bar/flutter_easyloading/likes)](https://pub.dev/packages/flutter_easyloading_plus/score) [![license](https://img.shields.io/github/license/rizkyghofur/flutter_easyloading_plus?style=flat)](https://github.com/rizkyghofur/flutter_easyloading_plus) [![stars](https://img.shields.io/github/stars/rizkyghofur/flutter_easyloading_plus?style=social)](https://github.com/rizkyghofur/flutter_easyloading_plus)
+[![pub package](https://img.shields.io/pub/v/flutter_easyloading_plus?style=flat)](https://pub.dev/packages/flutter_easyloading_plus) [![pub points](https://badges.bar/flutter_easyloading_plus/pub%20points)](https://pub.dev/packages/flutter_easyloading_plus/score) [![popularity](https://badges.bar/flutter_easyloading_plus/popularity)](https://pub.dev/packages/flutter_easyloading_plus/score) [![likes](https://badges.bar/flutter_easyloading_plus/likes)](https://pub.dev/packages/flutter_easyloading_plus/score) [![license](https://img.shields.io/github/license/rizkyghofur/flutter_easyloading_plus?style=flat)](https://github.com/rizkyghofur/flutter_easyloading_plus) [![stars](https://img.shields.io/github/stars/rizkyghofur/flutter_easyloading_plus?style=social)](https://github.com/rizkyghofur/flutter_easyloading_plus)
 
-<img src="https://raw.githubusercontent.com/rizkyghofur/flutter_easyloading_plus/master/images/gif01.gif" width=200 height=429/> <img src="https://raw.githubusercontent.com/rizkyghofur/flutter_easyloading_plus/master/images/gif02.gif" width=200 height=429/> <img src="https://raw.githubusercontent.com/rizkyghofur/flutter_easyloading_plus/master/images/gif03.gif" width=200 height=429/> <img src="https://raw.githubusercontent.com/rizkyghofur/flutter_easyloading_plus/master/images/gif04.gif" width=200 height=429/>
-
-## Live Preview
-
-👉 [Click here to see Live Preview!](https://nslogx.github.io/flutter_easyloading/#/)
+<img src="https://raw.githubusercontent.com/rizkyghofur/flutter_easyloading_plus/main/images/gif01.gif" width=200 height=429/> <img src="https://raw.githubusercontent.com/rizkyghofur/flutter_easyloading_plus/main/images/gif02.gif" width=200 height=429/> <img src="https://raw.githubusercontent.com/rizkyghofur/flutter_easyloading_plus/main/images/gif03.gif" width=200 height=429/> <img src="https://raw.githubusercontent.com/rizkyghofur/flutter_easyloading_plus/main/images/gif04.gif" width=200 height=429/>
 
 ## Installing
 
@@ -14,7 +10,7 @@ Add this to your package's `pubspec.yaml` file:
 
 ```yaml
 dependencies:
-  flutter_easyloading_plus: ^latest
+  flutter_easyloading_plus: ^3.2.0
 ```
 
 ## Import
@@ -33,11 +29,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter EasyLoading',
+      title: 'Flutter EasyLoading Plus',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter EasyLoading'),
+      home: MyHomePage(title: 'Flutter EasyLoading Plus'),
       builder: EasyLoading.init(),
     );
   }
@@ -47,11 +43,27 @@ class MyApp extends StatelessWidget {
 Then, enjoy yourself:
 
 ```dart
-EasyLoading.show(status: 'loading...');
+EasyLoading.show(
+  status: 'loading...',
+  onDismiss: () {
+    print('Loading dismissed');
+  },
+);
 
-EasyLoading.showProgress(0.3, status: 'downloading...');
+EasyLoading.showProgress(
+  0.3, 
+  status: 'downloading...',
+  onDismiss: () {
+    print('Progress dismissed');
+  },
+);
 
-EasyLoading.showSuccess('Great Success!');
+EasyLoading.showSuccess(
+  'Great Success!',
+  onDismiss: () {
+    print('Success dismissed');
+  },
+);
 
 EasyLoading.showError('Failed with Error');
 
@@ -195,13 +207,17 @@ More indicatorType can see in 👉 [flutter_spinkit showcase](https://github.com
 
 ## Custom Animation
 
-example: 👉 [Custom Animation](https://github.com/rizkyghofur/flutter_easyloading_plus/blob/develop/example/lib/custom_animation.dart)
+example: 👉 [Custom Animation](https://github.com/rizkyghofur/flutter_easyloading_plus/blob/main/example/lib/custom_animation.dart)
 
 ## Todo
 
 - [x] add progress indicator
 
 - [x] add custom animation
+
+- [x] add accessibility (Semantics) support
+
+- [x] add granular callbacks (onDismiss)
 
 ## Changelog
 
@@ -217,4 +233,4 @@ Thanks to [flutter_spinkit](https://github.com/jogboms/flutter_spinkit) ❤️
 
 Supported by [JetBrains Open Source](https://www.jetbrains.com/community/opensource/#support)
 
-[<img src="https://raw.githubusercontent.com/rizkyghofur/flutter_easyloading_plus/master/images/jetbrains.png" width=200 height=112/>](https://www.jetbrains.com/?from=FlutterEasyLoading)
+[<img src="https://raw.githubusercontent.com/rizkyghofur/flutter_easyloading_plus/main/images/jetbrains.png" width=200 height=112/>](https://www.jetbrains.com/?from=FlutterEasyLoadingPlus)

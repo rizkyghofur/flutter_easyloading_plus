@@ -30,9 +30,9 @@ class EasyLoadingProgress extends StatefulWidget {
   final double value;
 
   const EasyLoadingProgress({
-    Key? key,
+    super.key,
     required this.value,
-  }) : super(key: key);
+  });
 
   @override
   EasyLoadingProgressState createState() => EasyLoadingProgressState();
@@ -66,7 +66,7 @@ class EasyLoadingProgressState extends State<EasyLoadingProgress> {
       height: EasyLoadingTheme.indicatorSize,
       child: _CircleProgress(
         value: _value,
-        color: EasyLoadingTheme.progressColor,
+        color: EasyLoadingTheme.resolveIndicatorColor(context),
         width: EasyLoadingTheme.progressWidth,
       ),
     );
@@ -74,18 +74,19 @@ class EasyLoadingProgressState extends State<EasyLoadingProgress> {
 }
 
 class _CircleProgress extends ProgressIndicator {
-  final double value;
   final double width;
-  final Color color;
 
-  _CircleProgress({
-    required this.value,
+  const _CircleProgress({
+    required double value,
     required this.width,
-    required this.color,
-  });
+    required Color color,
+  }) : super(
+          value: value,
+          color: color,
+        );
 
   @override
-  __CircleProgressState createState() => __CircleProgressState();
+  State<_CircleProgress> createState() => __CircleProgressState();
 }
 
 class __CircleProgressState extends State<_CircleProgress> {
@@ -103,8 +104,8 @@ class __CircleProgressState extends State<_CircleProgress> {
   Widget build(BuildContext context) {
     return CustomPaint(
       painter: _CirclePainter(
-        color: widget.color,
-        value: widget.value,
+        color: widget.color!,
+        value: widget.value!,
         width: widget.width,
       ),
     );
@@ -116,7 +117,7 @@ class _CirclePainter extends CustomPainter {
   final double value;
   final double width;
 
-  _CirclePainter({
+  const _CirclePainter({
     required this.color,
     required this.value,
     required this.width,

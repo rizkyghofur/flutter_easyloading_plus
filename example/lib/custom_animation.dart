@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading_plus/flutter_easyloading_plus.dart';
 
 class CustomAnimation extends EasyLoadingAnimation {
-  CustomAnimation();
+  const CustomAnimation();
 
   @override
   Widget buildWidget(

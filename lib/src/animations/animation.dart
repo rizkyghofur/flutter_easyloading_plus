@@ -23,7 +23,7 @@
 import 'package:flutter/widgets.dart';
 
 abstract class EasyLoadingAnimation {
-  EasyLoadingAnimation();
+  const EasyLoadingAnimation();
 
   Widget call(
     Widget child,

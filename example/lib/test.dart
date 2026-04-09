@@ -1,11 +1,14 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading_plus/flutter_easyloading_plus.dart';
 
 class TestPage extends StatefulWidget {
+  const TestPage({super.key});
+
   @override
-  _TestPageState createState() => _TestPageState();
+  State<TestPage> createState() => _TestPageState();
 }
 
 class _TestPageState extends State<TestPage> {
@@ -25,7 +28,9 @@ class _TestPageState extends State<TestPage> {
   }
 
   void statusCallback(EasyLoadingStatus status) {
-    print('Test EasyLoading Status $status');
+    if (kDebugMode) {
+      print('Test EasyLoading Status $status');
+    }
   }
 
   void loadData() async {
@@ -35,11 +40,15 @@ class _TestPageState extends State<TestPage> {
       HttpClientRequest request =
           await client.getUrl(Uri.parse('https://github.com'));
       HttpClientResponse response = await request.close();
-      print(response);
+      if (kDebugMode) {
+        print(response);
+      }
       await EasyLoading.dismiss();
     } catch (e) {
       await EasyLoading.showError(e.toString());
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     }
   }
 
@@ -47,11 +56,11 @@ class _TestPageState extends State<TestPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Test Page'),
+        title: const Text('Test Page'),
       ),
       body: Center(
         child: TextButton(
-          child: Text('loadData'),
+          child: const Text('loadData'),
           onPressed: () {
             EasyLoading.show(status: '加载中...');
             // loadData();

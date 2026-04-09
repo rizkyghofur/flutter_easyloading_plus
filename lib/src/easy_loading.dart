@@ -103,7 +103,17 @@ enum EasyLoadingStatus {
 
 typedef EasyLoadingStatusCallback = void Function(EasyLoadingStatus status);
 
+/// EasyLoading is a simple and clean loading library for Flutter.
+///
+/// It supports various indicator styles, custom animations, and accessibility.
 class EasyLoading {
+  /// Whether to use the app's global [ThemeData] (via [BuildContext]).
+  ///
+  /// If true, the indicator will try to use [Theme.of(context).colorScheme.primary]
+  /// or [Theme.of(context).primaryColor] if no custom colors are set.
+  /// Default is false for backward compatibility.
+  late bool useContextTheme;
+
   /// loading style, default [EasyLoadingStyle.dark].
   late EasyLoadingStyle loadingStyle;
 
@@ -232,6 +242,7 @@ class EasyLoading {
       vertical: 15.0,
       horizontal: 20.0,
     );
+    useContextTheme = false;
   }
 
   static EasyLoading get instance => _instance;
@@ -251,26 +262,34 @@ class EasyLoading {
   }
 
   /// show loading with [status] [indicator] [maskType]
+  ///
+  /// [onDismiss] is called when the indicator is dismissed.
   static Future<void> show({
     String? status,
     Widget? indicator,
     EasyLoadingMaskType? maskType,
     bool? dismissOnTap,
+    void Function()? onDismiss,
   }) {
-    Widget w = indicator ?? (_instance.indicatorWidget ?? LoadingIndicator());
+    Widget w =
+        indicator ?? (_instance.indicatorWidget ?? const LoadingIndicator());
     return _instance._show(
       status: status,
       maskType: maskType,
       dismissOnTap: dismissOnTap,
+      onDismiss: onDismiss,
       w: w,
     );
   }
 
   /// show progress with [value] [status] [maskType], value should be 0.0 ~ 1.0.
+  ///
+  /// [onDismiss] is called when the indicator is dismissed.
   static Future<void> showProgress(
     double value, {
     String? status,
     EasyLoadingMaskType? maskType,
+    void Function()? onDismiss,
   }) async {
     assert(
       value >= 0.0 && value <= 1.0,
@@ -286,19 +305,20 @@ class EasyLoading {
 
     if (_instance.w == null || _instance.progressKey == null) {
       if (_instance.key != null) await dismiss(animation: false);
-      GlobalKey<EasyLoadingProgressState> _progressKey =
+      GlobalKey<EasyLoadingProgressState> progressKey =
           GlobalKey<EasyLoadingProgressState>();
       Widget w = EasyLoadingProgress(
-        key: _progressKey,
+        key: progressKey,
         value: value,
       );
       _instance._show(
         status: status,
         maskType: maskType,
         dismissOnTap: false,
+        onDismiss: onDismiss,
         w: w,
       );
-      _instance._progressKey = _progressKey;
+      _instance._progressKey = progressKey;
     }
     // update progress
     _instance.progressKey?.currentState?.updateProgress(min(1.0, value));
@@ -307,11 +327,14 @@ class EasyLoading {
   }
 
   /// showSuccess [status] [duration] [maskType]
+  ///
+  /// [onDismiss] is called when the indicator is dismissed.
   static Future<void> showSuccess(
     String status, {
     Duration? duration,
     EasyLoadingMaskType? maskType,
     bool? dismissOnTap,
+    void Function()? onDismiss,
   }) {
     Widget w = _instance.successWidget ??
         Icon(
@@ -324,16 +347,20 @@ class EasyLoading {
       duration: duration ?? EasyLoadingTheme.displayDuration,
       maskType: maskType,
       dismissOnTap: dismissOnTap,
+      onDismiss: onDismiss,
       w: w,
     );
   }
 
   /// showError [status] [duration] [maskType]
+  ///
+  /// [onDismiss] is called when the indicator is dismissed.
   static Future<void> showError(
     String status, {
     Duration? duration,
     EasyLoadingMaskType? maskType,
     bool? dismissOnTap,
+    void Function()? onDismiss,
   }) {
     Widget w = _instance.errorWidget ??
         Icon(
@@ -346,16 +373,20 @@ class EasyLoading {
       duration: duration ?? EasyLoadingTheme.displayDuration,
       maskType: maskType,
       dismissOnTap: dismissOnTap,
+      onDismiss: onDismiss,
       w: w,
     );
   }
 
   /// showInfo [status] [duration] [maskType]
+  ///
+  /// [onDismiss] is called when the indicator is dismissed.
   static Future<void> showInfo(
     String status, {
     Duration? duration,
     EasyLoadingMaskType? maskType,
     bool? dismissOnTap,
+    void Function()? onDismiss,
   }) {
     Widget w = _instance.infoWidget ??
         Icon(
@@ -368,17 +399,21 @@ class EasyLoading {
       duration: duration ?? EasyLoadingTheme.displayDuration,
       maskType: maskType,
       dismissOnTap: dismissOnTap,
+      onDismiss: onDismiss,
       w: w,
     );
   }
 
   /// showToast [status] [duration] [toastPosition] [maskType]
+  ///
+  /// [onDismiss] is called when the indicator is dismissed.
   static Future<void> showToast(
     String status, {
     Duration? duration,
     EasyLoadingToastPosition? toastPosition,
     EasyLoadingMaskType? maskType,
     bool? dismissOnTap,
+    void Function()? onDismiss,
   }) {
     return _instance._show(
       status: status,
@@ -386,6 +421,7 @@ class EasyLoading {
       toastPosition: toastPosition ?? EasyLoadingTheme.toastPosition,
       maskType: maskType,
       dismissOnTap: dismissOnTap,
+      onDismiss: onDismiss,
     );
   }
 
@@ -424,6 +460,7 @@ class EasyLoading {
     Duration? duration,
     EasyLoadingMaskType? maskType,
     bool? dismissOnTap,
+    void Function()? onDismiss,
     EasyLoadingToastPosition? toastPosition,
   }) async {
     assert(
@@ -476,6 +513,7 @@ class EasyLoading {
       toastPosition: toastPosition,
       maskType: maskType,
       dismissOnTap: dismissOnTap,
+      onDismiss: onDismiss,
       completer: completer,
     );
     completer.future.whenComplete(() {

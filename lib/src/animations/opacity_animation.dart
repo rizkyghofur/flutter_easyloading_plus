@@ -25,7 +25,7 @@ import 'package:flutter/widgets.dart';
 import 'animation.dart';
 
 class OpacityAnimation extends EasyLoadingAnimation {
-  OpacityAnimation();
+  const OpacityAnimation();
 
   @override
   Widget buildWidget(

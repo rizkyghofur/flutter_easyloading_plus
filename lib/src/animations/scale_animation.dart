@@ -25,7 +25,7 @@ import 'package:flutter/widgets.dart';
 import 'animation.dart';
 
 class ScaleAnimation extends EasyLoadingAnimation {
-  ScaleAnimation();
+  const ScaleAnimation();
 
   @override
   Widget buildWidget(

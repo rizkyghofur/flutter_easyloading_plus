@@ -38,18 +38,20 @@ class EasyLoadingContainer extends StatefulWidget {
   final EasyLoadingToastPosition? toastPosition;
   final EasyLoadingMaskType? maskType;
   final Completer<void>? completer;
+  final void Function()? onDismiss;
   final bool animation;
 
   const EasyLoadingContainer({
-    Key? key,
+    super.key,
     this.indicator,
     this.status,
     this.dismissOnTap,
     this.toastPosition,
     this.maskType,
     this.completer,
+    this.onDismiss,
     this.animation = true,
-  }) : super(key: key);
+  });
 
   @override
   EasyLoadingContainerState createState() => EasyLoadingContainerState();
@@ -102,9 +104,10 @@ class EasyLoadingContainerState extends State<EasyLoadingContainer>
   Future<void> show(bool animation) {
     if (isPersistentCallbacks) {
       Completer<void> completer = Completer<void>();
-      _ambiguate(SchedulerBinding.instance)!.addPostFrameCallback((_) =>
-          completer
-              .complete(_animationController.forward(from: animation ? 0 : 1)));
+      _ambiguate(SchedulerBinding.instance)!.addPostFrameCallback((_) {
+        _animationController.forward(from: animation ? 0 : 1);
+        completer.complete();
+      });
       return completer.future;
     } else {
       return _animationController.forward(from: animation ? 0 : 1);
@@ -112,11 +115,15 @@ class EasyLoadingContainerState extends State<EasyLoadingContainer>
   }
 
   Future<void> dismiss(bool animation) {
+    if (widget.onDismiss != null) {
+      widget.onDismiss!();
+    }
     if (isPersistentCallbacks) {
       Completer<void> completer = Completer<void>();
-      _ambiguate(SchedulerBinding.instance)!.addPostFrameCallback((_) =>
-          completer
-              .complete(_animationController.reverse(from: animation ? 1 : 0)));
+      _ambiguate(SchedulerBinding.instance)!.addPostFrameCallback((_) {
+        _animationController.reverse(from: animation ? 1 : 0);
+        completer.complete();
+      });
       return completer.future;
     } else {
       return _animationController.reverse(from: animation ? 1 : 0);
@@ -168,13 +175,17 @@ class EasyLoadingContainerState extends State<EasyLoadingContainer>
         AnimatedBuilder(
           animation: _animationController,
           builder: (BuildContext context, Widget? child) {
-            return EasyLoadingTheme.loadingAnimation.buildWidget(
-              _Indicator(
-                status: _status,
-                indicator: widget.indicator,
+            return Semantics(
+              label: _status ?? 'Loading',
+              container: true,
+              child: EasyLoadingTheme.loadingAnimation.buildWidget(
+                _Indicator(
+                  status: _status,
+                  indicator: widget.indicator,
+                ),
+                _animationController,
+                _alignment,
               ),
-              _animationController,
-              _alignment,
             );
           },
         ),
@@ -197,7 +208,7 @@ class _Indicator extends StatelessWidget {
     return Container(
       margin: EasyLoadingTheme.contentMargin,
       decoration: BoxDecoration(
-        color: EasyLoadingTheme.backgroundColor,
+        color: EasyLoadingTheme.resolveBackgroundColor(context),
         borderRadius: BorderRadius.circular(
           EasyLoadingTheme.radius,
         ),
@@ -221,7 +232,7 @@ class _Indicator extends StatelessWidget {
               status!,
               style: EasyLoadingTheme.textStyle ??
                   TextStyle(
-                    color: EasyLoadingTheme.textColor,
+                    color: EasyLoadingTheme.resolveTextColor(context),
                     fontSize: EasyLoadingTheme.fontSize,
                   ),
               textAlign: EasyLoadingTheme.textAlign,

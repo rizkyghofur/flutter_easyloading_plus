@@ -28,19 +28,25 @@ import '../theme.dart';
 
 class LoadingIndicator extends StatefulWidget {
   const LoadingIndicator({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
-  _LoadingIndicatorState createState() => _LoadingIndicatorState();
+  State<LoadingIndicator> createState() => _LoadingIndicatorState();
 }
 
 class _LoadingIndicatorState extends State<LoadingIndicator> {
   final double _size = EasyLoadingTheme.indicatorSize;
 
   /// indicator color of loading
-  final Color _indicatorColor = EasyLoadingTheme.indicatorColor;
+  late Color _indicatorColor;
   late Widget _indicator;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _indicatorColor = EasyLoadingTheme.resolveIndicatorColor(context);
+  }
 
   @override
   void initState() {
@@ -54,7 +60,7 @@ class _LoadingIndicatorState extends State<LoadingIndicator> {
 
   @override
   Widget build(BuildContext context) {
-    double _width = _size;
+    double width = _size;
     switch (EasyLoadingTheme.indicatorType) {
       case EasyLoadingIndicatorType.fadingCircle:
         _indicator = SpinKitFadingCircle(
@@ -73,7 +79,7 @@ class _LoadingIndicatorState extends State<LoadingIndicator> {
           color: _indicatorColor,
           size: _size,
         );
-        _width = _size * 2;
+        width = _size * 2;
         break;
       case EasyLoadingIndicatorType.chasingDots:
         _indicator = SpinKitChasingDots(
@@ -87,7 +93,7 @@ class _LoadingIndicatorState extends State<LoadingIndicator> {
           size: _size,
           itemCount: 6,
         );
-        _width = _size * 1.25;
+        width = _size * 1.25;
         break;
       case EasyLoadingIndicatorType.wanderingCubes:
         _indicator = SpinKitWanderingCubes(
@@ -215,7 +221,7 @@ class _LoadingIndicatorState extends State<LoadingIndicator> {
 
     return Container(
       constraints: BoxConstraints(
-        maxWidth: _width,
+        maxWidth: width,
       ),
       child: _indicator,
     );
